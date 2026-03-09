@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>For Adesuwa 🌸 Will You Be My Girlfriend?</title>
     <style>
         * {
@@ -12,15 +12,19 @@
             font-family: 'Georgia', 'Times New Roman', serif;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             background: #1a0f0c;
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Warm romantic background */
+        /* Warm romantic background with soft particles */
         .bg-ambient {
             position: fixed;
             top: 0;
@@ -29,6 +33,22 @@
             height: 100%;
             background: radial-gradient(circle at 30% 50%, #3d1e1a 0%, #1a0f0c 70%);
             z-index: -1;
+        }
+
+        .floating-particle {
+            position: fixed;
+            color: rgba(212, 175, 55, 0.15);
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatParticle 15s infinite linear;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
         }
 
         .container {
@@ -40,17 +60,24 @@
         /* Header - ONLY ADESUWA'S NAME */
         .love-header {
             text-align: center;
-            padding: 40px 20px;
-            margin-bottom: 40px;
+            padding: 30px 15px;
+            margin-bottom: 30px;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .love-header h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2.2rem, 8vw, 3.5rem);
             color: #d4af37;
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
         }
 
@@ -59,43 +86,62 @@
             font-style: italic;
             border-bottom: 3px solid #d4af37;
             padding-bottom: 5px;
+            display: inline-block;
         }
 
         .love-header .subtitle {
             color: #b89b7b;
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 4vw, 1.3rem);
             font-style: italic;
         }
 
-        /* FLOWER COLLAGE SECTION - Removed title and center symbol */
+        /* FLOWER COLLAGE SECTION */
         .flower-section {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s 0.2s forwards;
         }
 
         .flower-collage {
             position: relative;
-            height: 500px;
+            height: min(500px, 80vw);
             max-width: 800px;
             margin: 0 auto;
         }
 
-        /* Flower petals (media thumbnails) */
+        /* Flower petals */
         .petal {
             position: absolute;
-            width: 120px;
-            height: 120px;
+            width: min(120px, 20vw);
+            height: min(120px, 20vw);
             border-radius: 60% 40% 60% 40%;
             overflow: hidden;
             border: 3px solid #d4af37;
             box-shadow: 0 10px 20px rgba(0,0,0,0.5);
             cursor: pointer;
-            transition: all 0.5s;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             background: #2a1f1a;
+            opacity: 0;
+            transform: scale(0);
+            animation: petalPopIn 0.5s forwards;
         }
 
+        @keyframes petalPopIn {
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .petal-1 { top: 10%; left: 50%; transform: translateX(-50%); animation-delay: 0.1s; }
+        .petal-2 { top: 25%; right: 25%; animation-delay: 0.2s; }
+        .petal-3 { bottom: 25%; right: 25%; animation-delay: 0.3s; }
+        .petal-4 { bottom: 10%; left: 50%; transform: translateX(-50%); animation-delay: 0.4s; }
+        .petal-5 { bottom: 25%; left: 25%; animation-delay: 0.5s; }
+        .petal-6 { top: 25%; left: 25%; animation-delay: 0.6s; }
+        .petal-7 { top: 45%; left: 45%; transform: translate(-50%, -50%); width: min(100px, 16vw); height: min(100px, 16vw); animation-delay: 0.7s; }
+
         .petal:hover {
-            transform: scale(1.2);
+            transform: scale(1.2) rotate(5deg);
             z-index: 100;
             border-color: #fff0e0;
             box-shadow: 0 0 30px #d4af37;
@@ -105,16 +151,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s;
         }
 
-        /* Petal positions - flower shape (empty center) */
-        .petal-1 { top: 10%; left: 50%; transform: translateX(-50%); }
-        .petal-2 { top: 25%; right: 25%; }
-        .petal-3 { bottom: 25%; right: 25%; }
-        .petal-4 { bottom: 10%; left: 50%; transform: translateX(-50%); }
-        .petal-5 { bottom: 25%; left: 25%; }
-        .petal-6 { top: 25%; left: 25%; }
-        .petal-7 { top: 45%; left: 45%; transform: translate(-50%, -50%); width: 100px; height: 100px; }
+        .petal:hover img,
+        .petal:hover video {
+            transform: scale(1.1);
+        }
 
         /* Play icon for videos */
         .play-icon {
@@ -122,7 +165,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: rgba(212, 175, 55, 0.8);
+            background: rgba(212, 175, 55, 0.9);
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -134,6 +177,7 @@
             border: 2px solid white;
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
 
         .petal:hover .play-icon {
@@ -146,41 +190,63 @@
             border-left: 8px solid #d4af37;
             border-right: 8px solid #d4af37;
             border-radius: 60px;
-            padding: 40px;
-            margin: 60px auto;
+            padding: clamp(25px, 5vw, 40px);
+            margin: 40px auto;
             max-width: 800px;
             text-align: center;
             backdrop-filter: blur(5px);
             box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .love-note.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .note-icon {
-            font-size: 3rem;
+            font-size: clamp(2rem, 8vw, 3rem);
             color: #d4af37;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            animation: gentlePulse 2s infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
 
         .note-text {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
             color: #fff0e0;
             line-height: 1.6;
             font-style: italic;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .note-author {
             color: #b89b7b;
-            font-size: 1.2rem;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
         }
 
         /* MEMORY SECTIONS */
         .memory-section {
-            margin: 60px 0;
+            margin: 50px 0;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .memory-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .section-title {
             text-align: center;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 6vw, 2rem);
             color: #d4af37;
             margin-bottom: 30px;
             font-style: italic;
@@ -188,23 +254,24 @@
 
         .memory-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: 20px;
             max-width: 900px;
             margin: 0 auto;
+            padding: 0 10px;
         }
 
-        /* Special grid for third section - 3 items centered */
+        /* Special grid for three items */
         .memory-grid.three-items {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
         .memory-grid.three-items .memory-card {
-            width: calc(33.33% - 20px);
-            min-width: 250px;
+            width: min(280px, 100%);
+            flex: 0 1 auto;
         }
 
         .memory-card {
@@ -212,20 +279,29 @@
             border-radius: 20px;
             overflow: hidden;
             border: 2px solid #d4af37;
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
+            opacity: 0;
+            transform: scale(0.9);
+            animation: cardAppear 0.5s forwards;
+        }
+
+        @keyframes cardAppear {
+            to { opacity: 1; transform: scale(1); }
         }
 
         .memory-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-10px) scale(1.02);
             box-shadow: 0 20px 30px rgba(212, 175, 55, 0.3);
+            border-color: #fff0e0;
         }
 
         .memory-media {
             width: 100%;
-            height: 250px;
+            height: clamp(200px, 50vw, 250px);
             background: #2a1f1a;
             position: relative;
+            overflow: hidden;
         }
 
         .memory-media img,
@@ -233,32 +309,46 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .memory-card:hover .memory-media img,
+        .memory-card:hover .memory-media video {
+            transform: scale(1.1);
         }
 
         .memory-caption {
             padding: 15px;
             color: #d4af37;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
             font-weight: bold;
             text-align: center;
         }
 
-        /* PROPOSAL SECTION - REDUCED SIZE */
+        /* PROPOSAL SECTION */
         .proposal-section {
             text-align: center;
-            padding: 50px 30px;
+            padding: clamp(30px, 6vw, 50px) clamp(20px, 5vw, 30px);
             background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(180,130,0,0.2));
             border-radius: 60px;
-            margin: 80px 0 40px;
+            margin: 60px 0 40px;
             border: 3px solid #d4af37;
             backdrop-filter: blur(5px);
             max-width: 800px;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s ease;
+        }
+
+        .proposal-section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .big-heart {
-            font-size: 4rem;
+            font-size: clamp(3rem, 12vw, 4rem);
             color: #d4af37;
             animation: heartbeat 1.5s infinite;
             margin-bottom: 20px;
@@ -272,14 +362,15 @@
         }
 
         .proposal-text {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 7vw, 2.5rem);
             color: #fff0e0;
             margin-bottom: 15px;
+            line-height: 1.3;
         }
 
         .proposal-text span {
             color: #d4af37;
-            font-size: 3.2rem;
+            font-size: clamp(2.2rem, 8vw, 3.2rem);
             display: block;
             margin-top: 10px;
             font-weight: bold;
@@ -288,16 +379,16 @@
         /* BUTTON GAME */
         .button-game {
             position: relative;
-            height: 180px;
-            margin-top: 40px;
+            height: clamp(150px, 40vw, 180px);
+            margin-top: 30px;
         }
 
         .btn-yes {
             background: #d4af37;
             color: #1a0f0c;
             border: none;
-            padding: 15px 50px;
-            font-size: 1.8rem;
+            padding: clamp(12px, 3vw, 15px) clamp(30px, 8vw, 50px);
+            font-size: clamp(1.3rem, 5vw, 1.8rem);
             border-radius: 60px;
             cursor: pointer;
             font-weight: bold;
@@ -306,8 +397,9 @@
             transform: translateX(-50%);
             border: 4px solid #fff0e0;
             box-shadow: 0 10px 30px rgba(212,175,55,0.4);
-            transition: 0.3s;
+            transition: all 0.3s;
             z-index: 20;
+            white-space: nowrap;
         }
 
         .btn-yes:hover {
@@ -315,20 +407,23 @@
             box-shadow: 0 20px 40px rgba(212,175,55,0.6);
         }
 
+        .btn-yes:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+
         .btn-no {
             background: rgba(255,255,255,0.1);
             color: #b89b7b;
             border: 3px solid #d4af37;
-            padding: 12px 40px;
-            font-size: 1.6rem;
+            padding: clamp(10px, 2.5vw, 12px) clamp(25px, 6vw, 40px);
+            font-size: clamp(1.2rem, 4.5vw, 1.6rem);
             border-radius: 60px;
             cursor: pointer;
             position: absolute;
-            transition: all 0.4s;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             backdrop-filter: blur(5px);
             z-index: 10;
-            display: block;
-            visibility: visible;
+            white-space: nowrap;
         }
 
         /* Message popup */
@@ -336,15 +431,17 @@
             position: fixed;
             background: #d4af37;
             color: #1a0f0c;
-            padding: 15px 30px;
+            padding: 12px 24px;
             border-radius: 60px;
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 4vw, 1.1rem);
             font-weight: bold;
             z-index: 2000;
             animation: floatMessage 3.5s forwards;
             pointer-events: none;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             border: 2px solid #fff0e0;
+            max-width: 280px;
+            text-align: center;
         }
 
         @keyframes floatMessage {
@@ -362,10 +459,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.95);
+            background: rgba(0,0,0,0.98);
             z-index: 3000;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
 
         .modal.show {
@@ -374,7 +472,7 @@
 
         .modal-content {
             max-width: 1000px;
-            width: 90%;
+            width: 100%;
             border-radius: 20px;
             overflow: hidden;
             border: 5px solid #d4af37;
@@ -384,27 +482,36 @@
         .modal-content img {
             width: 100%;
             max-height: 80vh;
+            object-fit: contain;
         }
 
         .modal-close {
             position: absolute;
-            top: 30px;
-            right: 40px;
+            top: max(10px, 3vw);
+            right: max(20px, 5vw);
             color: white;
-            font-size: 4rem;
+            font-size: clamp(2rem, 8vw, 4rem);
             cursor: pointer;
             z-index: 3001;
+            background: rgba(0,0,0,0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #d4af37;
         }
 
-        /* YES Popup - UPDATED TEXT */
+        /* YES Popup */
         .yes-popup {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
             background: linear-gradient(135deg, #d4af37, #b8860b);
-            padding: 50px 60px;
-            border-radius: 70px;
+            padding: clamp(30px, 8vw, 50px) clamp(30px, 8vw, 60px);
+            border-radius: min(70px, 10vw);
             z-index: 5000;
             text-align: center;
             box-shadow: 0 40px 80px rgba(0,0,0,0.6);
@@ -422,75 +529,141 @@
         }
 
         .popup-hearts {
-            font-size: 3.5rem;
+            font-size: clamp(2.5rem, 10vw, 3.5rem);
             margin-bottom: 20px;
             animation: heartbeat 1.5s infinite;
         }
 
         .popup-title {
-            font-size: 3rem;
+            font-size: clamp(2rem, 8vw, 3rem);
             color: #1a0f0c;
             font-weight: bold;
             margin-bottom: 20px;
+            line-height: 1.2;
         }
 
         .popup-message {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 5vw, 1.8rem);
             color: #fff0e0;
             margin-bottom: 25px;
             line-height: 1.5;
         }
 
         .popup-love {
-            font-size: 2.2rem;
+            font-size: clamp(1.5rem, 6vw, 2.2rem);
             color: #1a0f0c;
             font-weight: bold;
             margin: 20px 0;
+            line-height: 1.3;
         }
 
         .popup-close-btn {
             background: #1a0f0c;
             color: #d4af37;
             border: none;
-            padding: 12px 40px;
-            font-size: 1.2rem;
+            padding: clamp(10px, 3vw, 12px) clamp(30px, 8vw, 40px);
+            font-size: clamp(1rem, 4vw, 1.2rem);
             border-radius: 50px;
             cursor: pointer;
             margin-top: 20px;
             font-weight: bold;
             border: 3px solid #fff0e0;
+            transition: transform 0.3s;
         }
 
-        /* Responsive */
+        .popup-close-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Scroll to top button */
+        .scroll-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #d4af37;
+            color: #1a0f0c;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: 3px solid #fff0e0;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 100;
+        }
+
+        .scroll-top.visible {
+            opacity: 0.8;
+        }
+
+        .scroll-top:hover {
+            opacity: 1;
+        }
+
+        /* Loading indicator */
+        .loading {
+            text-align: center;
+            color: #d4af37;
+            padding: 50px;
+            font-size: 1.2rem;
+        }
+
+        /* Mobile optimizations */
         @media (max-width: 768px) {
-            .flower-collage { height: 400px; }
-            .petal { width: 80px; height: 80px; }
-            .proposal-text { font-size: 2rem; }
-            .proposal-text span { font-size: 2.5rem; }
-            .memory-grid { grid-template-columns: 1fr; }
-            .memory-grid.three-items .memory-card { width: 100%; }
+            .petal:hover {
+                transform: scale(1.1);
+            }
+            
+            .memory-card:hover {
+                transform: translateY(-5px);
+            }
+            
+            .btn-yes:hover {
+                transform: translateX(-50%) translateY(-3px);
+            }
+            
+            .btn-no {
+                touch-action: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .flower-collage {
+                height: 350px;
+            }
+            
+            .petal-7 {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .button-game {
+                height: 140px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-ambient"></div>
+    <div class="bg-ambient" id="bgAmbient"></div>
 
     <div class="container">
-        <!-- Header - ONLY ADESUWA'S NAME -->
+        <!-- Header -->
         <div class="love-header">
             <h1>For My Dearest <span>Adesuwa</span></h1>
             <div class="subtitle">A Journey of Beautiful Memories</div>
         </div>
 
-        <!-- FLOWER COLLAGE SECTION - No title, no center symbol -->
+        <!-- FLOWER COLLAGE SECTION -->
         <div class="flower-section">
-            <div class="flower-collage" id="flowerCollage">
-                <!-- Petals will be added by JavaScript (empty center) -->
-            </div>
+            <div class="flower-collage" id="flowerCollage"></div>
         </div>
 
         <!-- FIRST LOVE NOTE -->
-        <div class="love-note">
+        <div class="love-note" id="note1">
             <div class="note-icon">💕</div>
             <div class="note-text">
                 "From the moment you came into my life, everything became more beautiful. Your smile lights up my world in ways you'll never know."
@@ -498,14 +671,14 @@
             <div class="note-author">— With all my heart</div>
         </div>
 
-        <!-- FIRST MEMORY SECTION - 1 video + 1 image -->
-        <div class="memory-section">
+        <!-- FIRST MEMORY SECTION -->
+        <div class="memory-section" id="section1">
             <h3 class="section-title">✨ Precious Moments ✨</h3>
             <div class="memory-grid" id="memoryGrid1"></div>
         </div>
 
         <!-- SECOND LOVE NOTE -->
-        <div class="love-note">
+        <div class="love-note" id="note2">
             <div class="note-icon">💖</div>
             <div class="note-text">
                 "Your laugh is my favorite melody, your happiness my greatest joy. Every moment with you feels like a beautiful dream."
@@ -513,14 +686,14 @@
             <div class="note-author">— Forever yours</div>
         </div>
 
-        <!-- SECOND MEMORY SECTION - 2 videos -->
-        <div class="memory-section">
+        <!-- SECOND MEMORY SECTION -->
+        <div class="memory-section" id="section2">
             <h3 class="section-title">🌟 Beautiful Memories 🌟</h3>
             <div class="memory-grid" id="memoryGrid2"></div>
         </div>
 
         <!-- THIRD LOVE NOTE -->
-        <div class="love-note">
+        <div class="love-note" id="note3">
             <div class="note-icon">💝</div>
             <div class="note-text">
                 "In your eyes, I found my home. In your heart, I found my peace. You are everything I never knew I needed."
@@ -528,21 +701,21 @@
             <div class="note-author">— Always</div>
         </div>
 
-        <!-- THIRD MEMORY SECTION - 3 items centered -->
-        <div class="memory-section">
+        <!-- THIRD MEMORY SECTION -->
+        <div class="memory-section" id="section3">
             <h3 class="section-title">🌹 Cherished Times 🌹</h3>
             <div class="memory-grid three-items" id="memoryGrid3"></div>
         </div>
 
-        <!-- PROPOSAL SECTION - REDUCED SIZE -->
-        <div class="proposal-section">
+        <!-- PROPOSAL SECTION -->
+        <div class="proposal-section" id="proposal">
             <div class="big-heart">❤️</div>
             <h2 class="proposal-text">
                 Adesuwa,<br>
                 <span>Will you be my girlfriend?</span>
             </h2>
 
-            <!-- BUTTON GAME - Both buttons visible -->
+            <!-- BUTTON GAME -->
             <div class="button-game" id="buttonGame">
                 <button class="btn-yes" id="yesBtn">YES, I WILL! 💕</button>
                 <button class="btn-no" id="noBtn">Not yet...</button>
@@ -550,13 +723,16 @@
         </div>
     </div>
 
-    <!-- Modal for fullscreen media -->
+    <!-- Scroll to top button -->
+    <div class="scroll-top" id="scrollTop">↑</div>
+
+    <!-- Modal -->
     <div class="modal" id="modal">
         <span class="modal-close" id="closeModal">&times;</span>
         <div class="modal-content" id="modalContent"></div>
     </div>
 
-    <!-- YES Popup - UPDATED TEXT -->
+    <!-- YES Popup -->
     <div class="yes-popup" id="yesPopup">
         <div class="popup-hearts">💕 💖 💝</div>
         <div class="popup-title">SHE SAID YES! 🎉</div>
@@ -571,7 +747,7 @@
     </div>
 
     <script>
-        // YOUR MEDIA FILES - CORRECT PATH: vidmage/
+        // YOUR MEDIA FILES
         const mediaFiles = [
             { file: 'vidmage/mg1.jpeg', type: 'image', caption: 'Beautiful Adesuwa', memory: 'The moment I knew you were special' },
             { file: 'vidmage/mg2.jpeg', type: 'image', caption: 'Your beautiful smile', memory: 'The smile that captured my heart' },
@@ -606,8 +782,23 @@
         const closeModal = document.getElementById('closeModal');
         const yesPopup = document.getElementById('yesPopup');
         const closeYesPopup = document.getElementById('closeYesPopup');
+        const scrollTop = document.getElementById('scrollTop');
+        const bgAmbient = document.getElementById('bgAmbient');
 
-        // CREATE FLOWER COLLAGE (all 7 memories in a flower shape - EMPTY CENTER)
+        // Create floating background particles
+        function createParticles() {
+            for (let i = 0; i < 15; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'floating-particle';
+                particle.innerHTML = ['❤️', '🌸', '✨', '💫'][Math.floor(Math.random() * 4)];
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 10 + 's';
+                particle.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                bgAmbient.appendChild(particle);
+            }
+        }
+
+        // CREATE FLOWER COLLAGE
         function createFlowerCollage() {
             for (let i = 0; i < mediaFiles.length; i++) {
                 const petal = document.createElement('div');
@@ -617,6 +808,7 @@
                     const video = document.createElement('video');
                     video.muted = true;
                     video.loop = true;
+                    video.playsInline = true;
                     video.style.width = '100%';
                     video.style.height = '100%';
                     video.style.objectFit = 'cover';
@@ -624,10 +816,17 @@
                     
                     video.onloadeddata = () => {
                         petal.appendChild(video);
-                        
-                        // Play on hover
-                        petal.addEventListener('mouseenter', () => video.play());
-                        petal.addEventListener('mouseleave', () => video.pause());
+                        // Auto-play when in view
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    video.play().catch(e => console.log('Auto-play prevented:', e));
+                                } else {
+                                    video.pause();
+                                }
+                            });
+                        }, { threshold: 0.3 });
+                        observer.observe(petal);
                     };
                     
                     // Add play icon
@@ -644,30 +843,23 @@
                     petal.appendChild(img);
                 }
                 
-                // Click to open fullscreen
                 petal.addEventListener('click', () => openMedia(i));
-                
                 flowerCollage.appendChild(petal);
             }
         }
 
-        // DISTRIBUTE MEDIA TO SECTIONS
+        // CREATE MEMORY SECTIONS
         function createMemorySections() {
-            // First section: 1 video + 1 image (mg1.jpeg + vid1.MP4)
-            const section1Media = [mediaFiles[0], mediaFiles[2]]; // mg1.jpeg, vid1.MP4
-            createMemoryGrid(memoryGrid1, section1Media, false);
+            const section1Media = [mediaFiles[0], mediaFiles[2]];
+            const section2Media = [mediaFiles[3], mediaFiles[4]];
+            const section3Media = [mediaFiles[5], mediaFiles[6], mediaFiles[1]];
             
-            // Second section: 2 videos (vid2.mp4, vid3.mp4)
-            const section2Media = [mediaFiles[3], mediaFiles[4]]; // vid2.mp4, vid3.mp4
-            createMemoryGrid(memoryGrid2, section2Media, false);
-            
-            // Third section: remaining 2 videos (vid4.mp4, vid5.MP4) + mg2.jpeg - CENTERED
-            const section3Media = [mediaFiles[5], mediaFiles[6], mediaFiles[1]]; // vid4.mp4, vid5.MP4, mg2.jpeg
+            createMemoryGrid(memoryGrid1, section1Media);
+            createMemoryGrid(memoryGrid2, section2Media);
             createMemoryGrid(memoryGrid3, section3Media, true);
         }
 
-        // Create memory grid for a section
-        function createMemoryGrid(gridElement, mediaArray, isThreeItems) {
+        function createMemoryGrid(gridElement, mediaArray, isThreeItems = false) {
             gridElement.innerHTML = '';
             
             mediaArray.forEach((media, index) => {
@@ -681,6 +873,7 @@
                     const video = document.createElement('video');
                     video.muted = true;
                     video.loop = true;
+                    video.playsInline = true;
                     video.style.width = '100%';
                     video.style.height = '100%';
                     video.style.objectFit = 'cover';
@@ -689,12 +882,20 @@
                     video.onloadeddata = () => {
                         mediaDiv.appendChild(video);
                         
-                        // Play on hover
-                        card.addEventListener('mouseenter', () => video.play());
-                        card.addEventListener('mouseleave', () => video.pause());
+                        // Auto-play when in view
+                        const observer = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting) {
+                                    video.play().catch(e => console.log('Auto-play prevented:', e));
+                                } else {
+                                    video.pause();
+                                }
+                            });
+                        }, { threshold: 0.3 });
+                        observer.observe(card);
                     };
                     
-                    // Add play indicator
+                    // Play indicator
                     const playIcon = document.createElement('div');
                     playIcon.style.position = 'absolute';
                     playIcon.style.top = '50%';
@@ -738,7 +939,6 @@
                 card.appendChild(mediaDiv);
                 card.appendChild(caption);
                 
-                // Find original index in mediaFiles
                 const originalIndex = mediaFiles.findIndex(m => m.file === media.file);
                 card.addEventListener('click', () => openMedia(originalIndex));
                 
@@ -746,39 +946,63 @@
             });
         }
 
-        // Open media in modal
-        function openMedia(index) {
-            const media = mediaFiles[index];
-            modalContent.innerHTML = '';
+        // SCROLL REVEAL ANIMATIONS
+        function setupScrollReveal() {
+            const elements = [
+                document.getElementById('note1'),
+                document.getElementById('section1'),
+                document.getElementById('note2'),
+                document.getElementById('section2'),
+                document.getElementById('note3'),
+                document.getElementById('section3'),
+                document.getElementById('proposal')
+            ];
             
-            if (media.type === 'video') {
-                const video = document.createElement('video');
-                video.controls = true;
-                video.autoplay = true;
-                video.style.width = '100%';
-                video.src = media.file;
-                modalContent.appendChild(video);
-            } else {
-                const img = document.createElement('img');
-                img.style.width = '100%';
-                img.src = media.file;
-                modalContent.appendChild(img);
-            }
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        
+                        // Auto-play videos in this section
+                        const videos = entry.target.querySelectorAll('video');
+                        videos.forEach(video => {
+                            video.play().catch(e => console.log('Auto-play error:', e));
+                        });
+                    }
+                });
+            }, { threshold: 0.2, rootMargin: '0px 0px -50px 0px' });
             
-            modal.classList.add('show');
+            elements.forEach(el => {
+                if (el) observer.observe(el);
+            });
+            
+            // Scroll to top button
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 500) {
+                    scrollTop.classList.add('visible');
+                } else {
+                    scrollTop.classList.remove('visible');
+                }
+            });
+            
+            scrollTop.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
         }
 
-        // NO BUTTON GAME - UNCLICKABLE but visible
+        // NO BUTTON GAME - Mobile friendly
         let attempts = 0;
+        let touchStartTime = 0;
 
         function moveNoButton(e) {
+            e.preventDefault();
             attempts++;
             
             const gameRect = buttonGame.getBoundingClientRect();
             const btnRect = noBtn.getBoundingClientRect();
             
-            const maxX = gameRect.width - btnRect.width - 30;
-            const maxY = gameRect.height - btnRect.height - 30;
+            const maxX = Math.max(0, gameRect.width - btnRect.width - 20);
+            const maxY = Math.max(0, gameRect.height - btnRect.height - 20);
             
             const newX = Math.random() * maxX;
             const newY = Math.random() * maxY;
@@ -786,12 +1010,22 @@
             noBtn.style.left = newX + 'px';
             noBtn.style.top = newY + 'px';
 
+            // Get touch/click position
+            let clientX, clientY;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+
             // Show sweet message
             const msg = document.createElement('div');
             msg.className = 'love-popup';
             msg.textContent = sweetMessages[Math.floor(Math.random() * sweetMessages.length)];
-            msg.style.left = (e.clientX - 100) + 'px';
-            msg.style.top = (e.clientY - 50) + 'px';
+            msg.style.left = Math.min(clientX - 100, window.innerWidth - 280) + 'px';
+            msg.style.top = (clientY - 50) + 'px';
             document.body.appendChild(msg);
 
             setTimeout(() => {
@@ -807,15 +1041,23 @@
             if (attempts >= 9) noBtn.textContent = 'YES? ❤️';
         }
 
+        // Event listeners for No button
         noBtn.addEventListener('mouseenter', moveNoButton);
-        noBtn.addEventListener('click', (e) => {
+        noBtn.addEventListener('click', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
             e.preventDefault();
+            touchStartTime = Date.now();
             moveNoButton(e);
+        });
+        noBtn.addEventListener('touchend', (e) => {
+            if (Date.now() - touchStartTime < 300) {
+                e.preventDefault();
+            }
         });
 
         // YES BUTTON
         yesBtn.addEventListener('click', () => {
-            noBtn.style.opacity = '0.5';
+            noBtn.style.opacity = '0.3';
             noBtn.style.pointerEvents = 'none';
 
             // Celebration hearts
@@ -826,7 +1068,7 @@
                     heart.style.position = 'fixed';
                     heart.style.left = Math.random() * 100 + '%';
                     heart.style.bottom = '0';
-                    heart.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                    heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
                     heart.style.color = ['#d4af37', '#d44b6b', '#b89b7b'][Math.floor(Math.random() * 3)];
                     heart.style.zIndex = '9999';
                     heart.style.pointerEvents = 'none';
@@ -835,7 +1077,7 @@
                     const style = document.createElement('style');
                     style.textContent = `
                         @keyframes floatHeart${i} {
-                            to { transform: translateY(-100vh) rotate(${Math.random() * 360}deg); }
+                            to { transform: translateY(-120vh) rotate(${Math.random() * 360}deg); }
                         }
                     `;
                     document.head.appendChild(style);
@@ -846,7 +1088,6 @@
                 }, i * 20);
             }
 
-            // Show beautiful popup
             setTimeout(() => {
                 yesPopup.style.display = 'block';
             }, 500);
@@ -856,6 +1097,29 @@
         closeYesPopup.addEventListener('click', () => {
             yesPopup.style.display = 'none';
         });
+
+        // Open media
+        function openMedia(index) {
+            const media = mediaFiles[index];
+            modalContent.innerHTML = '';
+            
+            if (media.type === 'video') {
+                const video = document.createElement('video');
+                video.controls = true;
+                video.autoplay = true;
+                video.playsInline = true;
+                video.style.width = '100%';
+                video.src = media.file;
+                modalContent.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.style.width = '100%';
+                img.src = media.file;
+                modalContent.appendChild(img);
+            }
+            
+            modal.classList.add('show');
+        }
 
         // Close modal
         closeModal.onclick = () => {
@@ -870,10 +1134,32 @@
             }
         };
 
+        // Handle touch events for modal
+        modal.addEventListener('touchstart', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                modalContent.innerHTML = '';
+            }
+        });
+
         // Initialize everything
+        createParticles();
         createFlowerCollage();
         createMemorySections();
-        console.log('Media loaded from folder: vidmage/');
+        setupScrollReveal();
+
+        // Handle orientation change
+        window.addEventListener('resize', () => {
+            // Recalculate positions if needed
+            if (noBtn.style.left) {
+                const gameRect = buttonGame.getBoundingClientRect();
+                const btnRect = noBtn.getBoundingClientRect();
+                const maxX = gameRect.width - btnRect.width - 20;
+                noBtn.style.left = Math.min(parseInt(noBtn.style.left), maxX) + 'px';
+            }
+        });
+
+        console.log('✨ All loaded! Media from: vidmage/');
     </script>
 </body>
 </html>
