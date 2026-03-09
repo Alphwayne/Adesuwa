@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>For Adesuwa 🌸 </title>
+    <title>For Adesuwa 🌸</title>
     <style>
         * {
             margin: 0;
@@ -812,22 +812,31 @@
                     video.style.width = '100%';
                     video.style.height = '100%';
                     video.style.objectFit = 'cover';
-                    video.src = mediaFiles[i].file;
                     
-                    video.onloadeddata = () => {
-                        petal.appendChild(video);
-                        // Auto-play when in view
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    video.play().catch(e => console.log('Auto-play prevented:', e));
-                                } else {
-                                    video.pause();
+                    // SPEED OPTIMIZATION: Set preload to 'none' to prevent downloading until needed
+                    video.preload = 'none';
+                    // Store source in data attribute, set actual src later
+                    video.setAttribute('data-src', mediaFiles[i].file);
+                    
+                    // Use intersection observer to load video when petal becomes visible
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (!video.src) {
+                                    video.src = video.getAttribute('data-src');
+                                    video.load(); // Start loading when near viewport
                                 }
-                            });
-                        }, { threshold: 0.3 });
-                        observer.observe(petal);
-                    };
+                                // Attempt to play, but may be blocked by browser
+                                video.play().catch(e => console.log('Auto-play prevented:', e));
+                            } else {
+                                video.pause();
+                            }
+                        });
+                    }, { threshold: 0.1, rootMargin: '200px' }); // Load when within 200px of viewport
+                    
+                    observer.observe(petal);
+                    
+                    petal.appendChild(video);
                     
                     // Add play icon
                     const playIcon = document.createElement('div');
@@ -839,6 +848,8 @@
                     img.style.width = '100%';
                     img.style.height = '100%';
                     img.style.objectFit = 'cover';
+                    // SPEED OPTIMIZATION: Use native lazy loading for images
+                    img.loading = 'lazy';
                     img.src = mediaFiles[i].file;
                     petal.appendChild(img);
                 }
@@ -877,23 +888,28 @@
                     video.style.width = '100%';
                     video.style.height = '100%';
                     video.style.objectFit = 'cover';
-                    video.src = media.file;
                     
-                    video.onloadeddata = () => {
-                        mediaDiv.appendChild(video);
-                        
-                        // Auto-play when in view
-                        const observer = new IntersectionObserver((entries) => {
-                            entries.forEach(entry => {
-                                if (entry.isIntersecting) {
-                                    video.play().catch(e => console.log('Auto-play prevented:', e));
-                                } else {
-                                    video.pause();
+                    // SPEED OPTIMIZATION: preload none, lazy load
+                    video.preload = 'none';
+                    video.setAttribute('data-src', media.file);
+                    
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                if (!video.src) {
+                                    video.src = video.getAttribute('data-src');
+                                    video.load();
                                 }
-                            });
-                        }, { threshold: 0.3 });
-                        observer.observe(card);
-                    };
+                                video.play().catch(e => console.log('Auto-play prevented:', e));
+                            } else {
+                                video.pause();
+                            }
+                        });
+                    }, { threshold: 0.1, rootMargin: '200px' });
+                    
+                    observer.observe(card);
+                    
+                    mediaDiv.appendChild(video);
                     
                     // Play indicator
                     const playIcon = document.createElement('div');
@@ -928,6 +944,8 @@
                     img.style.width = '100%';
                     img.style.height = '100%';
                     img.style.objectFit = 'cover';
+                    // SPEED OPTIMIZATION: native lazy loading
+                    img.loading = 'lazy';
                     img.src = media.file;
                     mediaDiv.appendChild(img);
                 }
@@ -966,6 +984,10 @@
                         // Auto-play videos in this section
                         const videos = entry.target.querySelectorAll('video');
                         videos.forEach(video => {
+                            if (!video.src && video.dataset.src) {
+                                video.src = video.dataset.src;
+                                video.load();
+                            }
                             video.play().catch(e => console.log('Auto-play error:', e));
                         });
                     }
@@ -1109,6 +1131,8 @@
                 video.autoplay = true;
                 video.playsInline = true;
                 video.style.width = '100%';
+                // Ensure video loads when opened in modal
+                video.preload = 'auto';
                 video.src = media.file;
                 modalContent.appendChild(video);
             } else {
