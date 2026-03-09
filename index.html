@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Adesuwa 🌸 Will You Be My Girlfriend?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+
+        body {
+            background: #1a0f0c;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Warm romantic background */
+        .bg-ambient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, #3d1e1a 0%, #1a0f0c 70%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Header - ONLY ADESUWA'S NAME */
+        .love-header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .love-header h1 {
+            font-size: 3.5rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .love-header h1 span {
+            color: #fff0e0;
+            font-style: italic;
+            border-bottom: 3px solid #d4af37;
+            padding-bottom: 5px;
+        }
+
+        .love-header .subtitle {
+            color: #b89b7b;
+            font-size: 1.3rem;
+            font-style: italic;
+        }
+
+        /* FLOWER COLLAGE SECTION - Removed title and center symbol */
+        .flower-section {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .flower-collage {
+            position: relative;
+            height: 500px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Flower petals (media thumbnails) */
+        .petal {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 60% 40% 60% 40%;
+            overflow: hidden;
+            border: 3px solid #d4af37;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            cursor: pointer;
+            transition: all 0.5s;
+            background: #2a1f1a;
+        }
+
+        .petal:hover {
+            transform: scale(1.2);
+            z-index: 100;
+            border-color: #fff0e0;
+            box-shadow: 0 0 30px #d4af37;
+        }
+
+        .petal img, .petal video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Petal positions - flower shape (empty center) */
+        .petal-1 { top: 10%; left: 50%; transform: translateX(-50%); }
+        .petal-2 { top: 25%; right: 25%; }
+        .petal-3 { bottom: 25%; right: 25%; }
+        .petal-4 { bottom: 10%; left: 50%; transform: translateX(-50%); }
+        .petal-5 { bottom: 25%; left: 25%; }
+        .petal-6 { top: 25%; left: 25%; }
+        .petal-7 { top: 45%; left: 45%; transform: translate(-50%, -50%); width: 100px; height: 100px; }
+
+        /* Play icon for videos */
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(212, 175, 55, 0.8);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            border: 2px solid white;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .petal:hover .play-icon {
+            opacity: 1;
+        }
+
+        /* LOVE NOTE SECTION */
+        .love-note {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 8px solid #d4af37;
+            border-right: 8px solid #d4af37;
+            border-radius: 60px;
+            padding: 40px;
+            margin: 60px auto;
+            max-width: 800px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+        }
+
+        .note-icon {
+            font-size: 3rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+
+        .note-text {
+            font-size: 1.8rem;
+            color: #fff0e0;
+            line-height: 1.6;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .note-author {
+            color: #b89b7b;
+            font-size: 1.2rem;
+        }
+
+        /* MEMORY SECTIONS */
+        .memory-section {
+            margin: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Special grid for third section - 3 items centered */
+        .memory-grid.three-items {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .memory-grid.three-items .memory-card {
+            width: calc(33.33% - 20px);
+            min-width: 250px;
+        }
+
+        .memory-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid #d4af37;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .memory-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .memory-media {
+            width: 100%;
+            height: 250px;
+            background: #2a1f1a;
+            position: relative;
+        }
+
+        .memory-media img,
+        .memory-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .memory-caption {
+            padding: 15px;
+            color: #d4af37;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        /* PROPOSAL SECTION - REDUCED SIZE */
+        .proposal-section {
+            text-align: center;
+            padding: 50px 30px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(180,130,0,0.2));
+            border-radius: 60px;
+            margin: 80px 0 40px;
+            border: 3px solid #d4af37;
+            backdrop-filter: blur(5px);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .big-heart {
+            font-size: 4rem;
+            color: #d4af37;
+            animation: heartbeat 1.5s infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.2); }
+            30% { transform: scale(1.1); }
+            35% { transform: scale(1.2); }
+        }
+
+        .proposal-text {
+            font-size: 2.5rem;
+            color: #fff0e0;
+            margin-bottom: 15px;
+        }
+
+        .proposal-text span {
+            color: #d4af37;
+            font-size: 3.2rem;
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* BUTTON GAME */
+        .button-game {
+            position: relative;
+            height: 180px;
+            margin-top: 40px;
+        }
+
+        .btn-yes {
+            background: #d4af37;
+            color: #1a0f0c;
+            border: none;
+            padding: 15px 50px;
+            font-size: 1.8rem;
+            border-radius: 60px;
+            cursor: pointer;
+            font-weight: bold;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid #fff0e0;
+            box-shadow: 0 10px 30px rgba(212,175,55,0.4);
+            transition: 0.3s;
+            z-index: 20;
+        }
+
+        .btn-yes:hover {
+            transform: translateX(-50%) translateY(-5px);
+            box-shadow: 0 20px 40px rgba(212,175,55,0.6);
+        }
+
+        .btn-no {
+            background: rgba(255,255,255,0.1);
+            color: #b89b7b;
+            border: 3px solid #d4af37;
+            padding: 12px 40px;
+            font-size: 1.6rem;
+            border-radius: 60px;
+            cursor: pointer;
+            position: absolute;
+            transition: all 0.4s;
+            backdrop-filter: blur(5px);
+            z-index: 10;
+            display: block;
+            visibility: visible;
+        }
+
+        /* Message popup */
+        .love-popup {
+            position: fixed;
+            background: #d4af37;
+            color: #1a0f0c;
+            padding: 15px 30px;
+            border-radius: 60px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            z-index: 2000;
+            animation: floatMessage 3.5s forwards;
+            pointer-events: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 2px solid #fff0e0;
+        }
+
+        @keyframes floatMessage {
+            0% { opacity: 0; transform: scale(0.5); }
+            20% { opacity: 1; transform: scale(1); }
+            80% { opacity: 1; transform: translateY(-100px); }
+            100% { opacity: 0; transform: translateY(-150px); }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 1000px;
+            width: 90%;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 5px solid #d4af37;
+        }
+
+        .modal-content video,
+        .modal-content img {
+            width: 100%;
+            max-height: 80vh;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: white;
+            font-size: 4rem;
+            cursor: pointer;
+            z-index: 3001;
+        }
+
+        /* YES Popup - UPDATED TEXT */
+        .yes-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            padding: 50px 60px;
+            border-radius: 70px;
+            z-index: 5000;
+            text-align: center;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+            border: 8px solid #fff0e0;
+            animation: popIn 0.8s forwards;
+            max-width: 700px;
+            width: 90%;
+            display: none;
+        }
+
+        @keyframes popIn {
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+            70% { transform: translate(-50%, -50%) scale(1.1); }
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        }
+
+        .popup-hearts {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+
+        .popup-title {
+            font-size: 3rem;
+            color: #1a0f0c;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .popup-message {
+            font-size: 1.8rem;
+            color: #fff0e0;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .popup-love {
+            font-size: 2.2rem;
+            color: #1a0f0c;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .popup-close-btn {
+            background: #1a0f0c;
+            color: #d4af37;
+            border: none;
+            padding: 12px 40px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-weight: bold;
+            border: 3px solid #fff0e0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .flower-collage { height: 400px; }
+            .petal { width: 80px; height: 80px; }
+            .proposal-text { font-size: 2rem; }
+            .proposal-text span { font-size: 2.5rem; }
+            .memory-grid { grid-template-columns: 1fr; }
+            .memory-grid.three-items .memory-card { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-ambient"></div>
+
+    <div class="container">
+        <!-- Header - ONLY ADESUWA'S NAME -->
+        <div class="love-header">
+            <h1>For My Dearest <span>Adesuwa</span></h1>
+            <div class="subtitle">A Journey of Beautiful Memories</div>
+        </div>
+
+        <!-- FLOWER COLLAGE SECTION - No title, no center symbol -->
+        <div class="flower-section">
+            <div class="flower-collage" id="flowerCollage">
+                <!-- Petals will be added by JavaScript (empty center) -->
+            </div>
+        </div>
+
+        <!-- FIRST LOVE NOTE -->
+        <div class="love-note">
+            <div class="note-icon">💕</div>
+            <div class="note-text">
+                "From the moment you came into my life, everything became more beautiful. Your smile lights up my world in ways you'll never know."
+            </div>
+            <div class="note-author">— With all my heart</div>
+        </div>
+
+        <!-- FIRST MEMORY SECTION - 1 video + 1 image -->
+        <div class="memory-section">
+            <h3 class="section-title">✨ Precious Moments ✨</h3>
+            <div class="memory-grid" id="memoryGrid1"></div>
+        </div>
+
+        <!-- SECOND LOVE NOTE -->
+        <div class="love-note">
+            <div class="note-icon">💖</div>
+            <div class="note-text">
+                "Your laugh is my favorite melody, your happiness my greatest joy. Every moment with you feels like a beautiful dream."
+            </div>
+            <div class="note-author">— Forever yours</div>
+        </div>
+
+        <!-- SECOND MEMORY SECTION - 2 videos -->
+        <div class="memory-section">
+            <h3 class="section-title">🌟 Beautiful Memories 🌟</h3>
+            <div class="memory-grid" id="memoryGrid2"></div>
+        </div>
+
+        <!-- THIRD LOVE NOTE -->
+        <div class="love-note">
+            <div class="note-icon">💝</div>
+            <div class="note-text">
+                "In your eyes, I found my home. In your heart, I found my peace. You are everything I never knew I needed."
+            </div>
+            <div class="note-author">— Always</div>
+        </div>
+
+        <!-- THIRD MEMORY SECTION - 3 items centered -->
+        <div class="memory-section">
+            <h3 class="section-title">🌹 Cherished Times 🌹</h3>
+            <div class="memory-grid three-items" id="memoryGrid3"></div>
+        </div>
+
+        <!-- PROPOSAL SECTION - REDUCED SIZE -->
+        <div class="proposal-section">
+            <div class="big-heart">❤️</div>
+            <h2 class="proposal-text">
+                Adesuwa,<br>
+                <span>Will you be my girlfriend?</span>
+            </h2>
+
+            <!-- BUTTON GAME - Both buttons visible -->
+            <div class="button-game" id="buttonGame">
+                <button class="btn-yes" id="yesBtn">YES, I WILL! 💕</button>
+                <button class="btn-no" id="noBtn">Not yet...</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for fullscreen media -->
+    <div class="modal" id="modal">
+        <span class="modal-close" id="closeModal">&times;</span>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+
+    <!-- YES Popup - UPDATED TEXT -->
+    <div class="yes-popup" id="yesPopup">
+        <div class="popup-hearts">💕 💖 💝</div>
+        <div class="popup-title">SHE SAID YES! 🎉</div>
+        <div class="popup-message">
+            Adesuwa, you've made my heart<br>
+            the happiest it could ever be!
+        </div>
+        <div class="popup-love">
+            Adesuwa, I love you forever!!
+        </div>
+        <button class="popup-close-btn" id="closeYesPopup">Close</button>
+    </div>
+
+    <script>
+        // YOUR MEDIA FILES - CORRECT PATH: vidmage/
+        const mediaFiles = [
+            { file: 'vidmage/mg1.jpeg', type: 'image', caption: 'Beautiful Adesuwa', memory: 'The moment I knew you were special' },
+            { file: 'vidmage/mg2.jpeg', type: 'image', caption: 'Your beautiful smile', memory: 'The smile that captured my heart' },
+            { file: 'vidmage/vid1.MP4', type: 'video', caption: 'Laughing together', memory: 'Your laugh is my favorite melody' },
+            { file: 'vidmage/vid2.mp4', type: 'video', caption: 'Our time together', memory: 'Every second with you is precious' },
+            { file: 'vidmage/vid3.mp4', type: 'video', caption: 'You being you', memory: 'Perfect in every way' },
+            { file: 'vidmage/vid4.mp4', type: 'video', caption: 'Beautiful moments', memory: 'Making memories I treasure' },
+            { file: 'vidmage/vid5.MP4', type: 'video', caption: 'Our journey', memory: 'And many more to come' }
+        ];
+
+        // Sweet messages for No button
+        const sweetMessages = [
+            "Oh Adesuwa, your heart knows the answer! 💕",
+            "Just say YES and make my heart complete! 💖",
+            "You and I are meant to be together! 💝",
+            "Say YES to forever with me! 💗",
+            "The YES button is waiting for you! 💓",
+            "Don't let this moment pass us by! 💞",
+            "Say YES to our love story! 💘"
+        ];
+
+        // Get elements
+        const flowerCollage = document.getElementById('flowerCollage');
+        const memoryGrid1 = document.getElementById('memoryGrid1');
+        const memoryGrid2 = document.getElementById('memoryGrid2');
+        const memoryGrid3 = document.getElementById('memoryGrid3');
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const buttonGame = document.getElementById('buttonGame');
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modalContent');
+        const closeModal = document.getElementById('closeModal');
+        const yesPopup = document.getElementById('yesPopup');
+        const closeYesPopup = document.getElementById('closeYesPopup');
+
+        // CREATE FLOWER COLLAGE (all 7 memories in a flower shape - EMPTY CENTER)
+        function createFlowerCollage() {
+            for (let i = 0; i < mediaFiles.length; i++) {
+                const petal = document.createElement('div');
+                petal.className = `petal petal-${i + 1}`;
+                
+                if (mediaFiles[i].type === 'video') {
+                    const video = document.createElement('video');
+                    video.muted = true;
+                    video.loop = true;
+                    video.style.width = '100%';
+                    video.style.height = '100%';
+                    video.style.objectFit = 'cover';
+                    video.src = mediaFiles[i].file;
+                    
+                    video.onloadeddata = () => {
+                        petal.appendChild(video);
+                        
+                        // Play on hover
+                        petal.addEventListener('mouseenter', () => video.play());
+                        petal.addEventListener('mouseleave', () => video.pause());
+                    };
+                    
+                    // Add play icon
+                    const playIcon = document.createElement('div');
+                    playIcon.className = 'play-icon';
+                    playIcon.innerHTML = '▶';
+                    petal.appendChild(playIcon);
+                } else {
+                    const img = document.createElement('img');
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    img.src = mediaFiles[i].file;
+                    petal.appendChild(img);
+                }
+                
+                // Click to open fullscreen
+                petal.addEventListener('click', () => openMedia(i));
+                
+                flowerCollage.appendChild(petal);
+            }
+        }
+
+        // DISTRIBUTE MEDIA TO SECTIONS
+        function createMemorySections() {
+            // First section: 1 video + 1 image (mg1.jpeg + vid1.MP4)
+            const section1Media = [mediaFiles[0], mediaFiles[2]]; // mg1.jpeg, vid1.MP4
+            createMemoryGrid(memoryGrid1, section1Media, false);
+            
+            // Second section: 2 videos (vid2.mp4, vid3.mp4)
+            const section2Media = [mediaFiles[3], mediaFiles[4]]; // vid2.mp4, vid3.mp4
+            createMemoryGrid(memoryGrid2, section2Media, false);
+            
+            // Third section: remaining 2 videos (vid4.mp4, vid5.MP4) + mg2.jpeg - CENTERED
+            const section3Media = [mediaFiles[5], mediaFiles[6], mediaFiles[1]]; // vid4.mp4, vid5.MP4, mg2.jpeg
+            createMemoryGrid(memoryGrid3, section3Media, true);
+        }
+
+        // Create memory grid for a section
+        function createMemoryGrid(gridElement, mediaArray, isThreeItems) {
+            gridElement.innerHTML = '';
+            
+            mediaArray.forEach((media, index) => {
+                const card = document.createElement('div');
+                card.className = 'memory-card';
+                
+                const mediaDiv = document.createElement('div');
+                mediaDiv.className = 'memory-media';
+                
+                if (media.type === 'video') {
+                    const video = document.createElement('video');
+                    video.muted = true;
+                    video.loop = true;
+                    video.style.width = '100%';
+                    video.style.height = '100%';
+                    video.style.objectFit = 'cover';
+                    video.src = media.file;
+                    
+                    video.onloadeddata = () => {
+                        mediaDiv.appendChild(video);
+                        
+                        // Play on hover
+                        card.addEventListener('mouseenter', () => video.play());
+                        card.addEventListener('mouseleave', () => video.pause());
+                    };
+                    
+                    // Add play indicator
+                    const playIcon = document.createElement('div');
+                    playIcon.style.position = 'absolute';
+                    playIcon.style.top = '50%';
+                    playIcon.style.left = '50%';
+                    playIcon.style.transform = 'translate(-50%, -50%)';
+                    playIcon.style.background = '#d4af37';
+                    playIcon.style.color = '#1a0f0c';
+                    playIcon.style.width = '50px';
+                    playIcon.style.height = '50px';
+                    playIcon.style.borderRadius = '50%';
+                    playIcon.style.display = 'flex';
+                    playIcon.style.justifyContent = 'center';
+                    playIcon.style.alignItems = 'center';
+                    playIcon.style.fontSize = '1.3rem';
+                    playIcon.style.border = '3px solid white';
+                    playIcon.style.opacity = '0';
+                    playIcon.style.transition = 'opacity 0.3s';
+                    playIcon.innerHTML = '▶';
+                    
+                    mediaDiv.appendChild(playIcon);
+                    
+                    card.addEventListener('mouseenter', () => {
+                        playIcon.style.opacity = '1';
+                    });
+                    card.addEventListener('mouseleave', () => {
+                        playIcon.style.opacity = '0';
+                    });
+                } else {
+                    const img = document.createElement('img');
+                    img.style.width = '100%';
+                    img.style.height = '100%';
+                    img.style.objectFit = 'cover';
+                    img.src = media.file;
+                    mediaDiv.appendChild(img);
+                }
+                
+                const caption = document.createElement('div');
+                caption.className = 'memory-caption';
+                caption.textContent = media.caption;
+                
+                card.appendChild(mediaDiv);
+                card.appendChild(caption);
+                
+                // Find original index in mediaFiles
+                const originalIndex = mediaFiles.findIndex(m => m.file === media.file);
+                card.addEventListener('click', () => openMedia(originalIndex));
+                
+                gridElement.appendChild(card);
+            });
+        }
+
+        // Open media in modal
+        function openMedia(index) {
+            const media = mediaFiles[index];
+            modalContent.innerHTML = '';
+            
+            if (media.type === 'video') {
+                const video = document.createElement('video');
+                video.controls = true;
+                video.autoplay = true;
+                video.style.width = '100%';
+                video.src = media.file;
+                modalContent.appendChild(video);
+            } else {
+                const img = document.createElement('img');
+                img.style.width = '100%';
+                img.src = media.file;
+                modalContent.appendChild(img);
+            }
+            
+            modal.classList.add('show');
+        }
+
+        // NO BUTTON GAME - UNCLICKABLE but visible
+        let attempts = 0;
+
+        function moveNoButton(e) {
+            attempts++;
+            
+            const gameRect = buttonGame.getBoundingClientRect();
+            const btnRect = noBtn.getBoundingClientRect();
+            
+            const maxX = gameRect.width - btnRect.width - 30;
+            const maxY = gameRect.height - btnRect.height - 30;
+            
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+            
+            noBtn.style.left = newX + 'px';
+            noBtn.style.top = newY + 'px';
+
+            // Show sweet message
+            const msg = document.createElement('div');
+            msg.className = 'love-popup';
+            msg.textContent = sweetMessages[Math.floor(Math.random() * sweetMessages.length)];
+            msg.style.left = (e.clientX - 100) + 'px';
+            msg.style.top = (e.clientY - 50) + 'px';
+            document.body.appendChild(msg);
+
+            setTimeout(() => {
+                if (document.body.contains(msg)) {
+                    document.body.removeChild(msg);
+                }
+            }, 3500);
+
+            // Change button text
+            if (attempts === 3) noBtn.textContent = 'Are you sure? 💕';
+            if (attempts === 5) noBtn.textContent = 'Just say YES! 💖';
+            if (attempts === 7) noBtn.textContent = 'You know you want to! 💝';
+            if (attempts >= 9) noBtn.textContent = 'YES? ❤️';
+        }
+
+        noBtn.addEventListener('mouseenter', moveNoButton);
+        noBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            moveNoButton(e);
+        });
+
+        // YES BUTTON
+        yesBtn.addEventListener('click', () => {
+            noBtn.style.opacity = '0.5';
+            noBtn.style.pointerEvents = 'none';
+
+            // Celebration hearts
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = ['❤️', '💕', '💖', '💗', '💓', '💞', '💝'][Math.floor(Math.random() * 7)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.bottom = '0';
+                    heart.style.fontSize = (Math.random() * 40 + 20) + 'px';
+                    heart.style.color = ['#d4af37', '#d44b6b', '#b89b7b'][Math.floor(Math.random() * 3)];
+                    heart.style.zIndex = '9999';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.animation = `floatHeart${i} 3s forwards`;
+                    
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        @keyframes floatHeart${i} {
+                            to { transform: translateY(-100vh) rotate(${Math.random() * 360}deg); }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => heart.remove(), 3000);
+                }, i * 20);
+            }
+
+            // Show beautiful popup
+            setTimeout(() => {
+                yesPopup.style.display = 'block';
+            }, 500);
+        });
+
+        // Close popup
+        closeYesPopup.addEventListener('click', () => {
+            yesPopup.style.display = 'none';
+        });
+
+        // Close modal
+        closeModal.onclick = () => {
+            modal.classList.remove('show');
+            modalContent.innerHTML = '';
+        };
+
+        modal.onclick = (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('show');
+                modalContent.innerHTML = '';
+            }
+        };
+
+        // Initialize everything
+        createFlowerCollage();
+        createMemorySections();
+        console.log('Media loaded from folder: vidmage/');
+    </script>
+</body>
+</html>
